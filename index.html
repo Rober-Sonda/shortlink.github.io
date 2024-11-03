@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Acortador de URL</title> <!-- Solo una etiqueta title -->
+        <meta property="og:title" content="Título de la Página" />
+        <meta property="og:description" content="Descripción de la Página" />
+        <meta property="og:image" content="https://th.bing.com/th/id/OIP.jVFci2B2YU-e7TIV_rkDUgHaHa?rs=1&pid=ImgDetMain&v=1" />
+        <meta property="og:url" content="https://ejemplo.com/" />
+        <link rel="stylesheet" href="styles/styles.css">
+    </head>
+    
+    
+<body>
+    <header>
+        <h1>Acortador de URL</h1>
+        <p>Comparte enlaces personalizados con imágenes y descripciones.</p>
+    </header>
+
+    <main>
+        <section id="instructions">
+            <h2>Instrucciones</h2>
+            <p>Para acortar una URL, completa el formulario a continuación con la URL que deseas acortar, un título para identificarla y una imagen que deseas mostrar. Haz clic en "Agregar Enlace" y verás tu enlace personalizado a continuación.</p>
+        </section>
+
+        <form id="url-form">
+            <input type="url" id="url-input" placeholder="Ingresa tu URL" required>
+            <input type="text" id="title-input" placeholder="Título" required>
+            <input type="url" id="image-input" placeholder="URL de la Imagen" required>
+            <button type="submit">Agregar Enlace</button>
+            <button type="button" id="clear-links">Limpiar Enlaces</button> <!-- Botón para limpiar enlaces -->
+        </form>
+
+        <section id="links-container">
+            <h2>Enlaces Acortados</h2>
+            <div id="links-list"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Tu Nombre. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

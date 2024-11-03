@@ -1,0 +1,167 @@
+/* Estilo personalizado para el acortador de URL */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f3f4f6;
+    color: #333;
+}
+
+header {
+    background: linear-gradient(90deg, #007bff, #00c6ff);
+    color: white;
+    padding: 30px;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 5px;
+}
+
+h2 {
+    font-size: 1.8em;
+    margin: 15px 0 5px;
+}
+
+main {
+    margin: 20px 0;
+    padding: 25px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input[type="url"],
+input[type="text"] {
+    padding: 12px;
+    border: 1px solid #007bff;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: all 0.3s;
+}
+
+input[type="url"]:focus,
+input[type="text"]:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
+    outline: none;
+}
+
+button {
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+#links-container {
+    margin-top: 20px;
+}
+
+#links-list {
+    display: grid; /* Cambia a grid para diseño de cuadrícula */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Establece columnas automáticas con un tamaño mínimo */
+    gap: 16px; /* Espacio entre los cuadros */
+    margin-top: 20px; /* Espacio superior */
+}
+
+.link-item {
+    background-color: #f9f9f9; /* Color de fondo del cuadro */
+    border: 1px solid #ddd; /* Borde del cuadro */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 16px; /* Espaciado interno */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra para dar efecto de elevación */
+    transition: transform 0.2s; /* Transición para efectos de hover */
+}
+
+.link-item:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transform: scale(1.02); /* Efecto de aumento al pasar el ratón */
+}
+
+.link-content {
+    display: flex; /* Flex para el contenido dentro del cuadro */
+    flex-direction: column; /* Columna para apilar elementos */
+    align-items: center; /* Centrar elementos */
+    text-align: center; /* Centrar texto */
+}
+
+.link-content img {
+    max-width: 100%; /* Imagen ocupa el ancho máximo del cuadro */
+    border-radius: 4px; /* Bordes redondeados para la imagen */
+}
+
+.link-item img {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    margin-right: 15px;
+}
+
+.link-details {
+    flex-grow: 1;
+}
+
+.link-item h3 {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+    color: #007bff;
+}
+
+.link-item a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 0.9em;
+    display: block;
+    transition: color 0.3s;
+}
+
+.link-item a:hover {
+    color: #0056b3;
+}
+
+.copy-button {
+    margin-top: 10px; /* Espacio arriba del botón */
+}
+
+.copy-button:hover {
+    background-color: #218838;
+}
+
+.copy-message {
+    margin-left: 10px;
+    color: #28a745;
+    font-size: 0.9em;
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.9em;
+    color: #777;
+}
