@@ -165,3 +165,57 @@ footer {
     font-size: 0.9em;
     color: #777;
 }
+
+/* Media Queries para pantallas pequeñas */
+@media (max-width: 600px) {
+    body {
+        padding: 10px; /* Reduce el padding en móviles */
+    }
+
+    header {
+        padding: 20px; /* Reduce el padding en móviles */
+    }
+
+    h1 {
+        font-size: 2em; /* Ajusta el tamaño para pantallas pequeñas */
+    }
+
+    h2 {
+        font-size: 1.5em; /* Ajusta el tamaño para pantallas pequeñas */
+    }
+
+    main {
+        padding: 15px; /* Reduce el padding en móviles */
+    }
+
+    input[type="url"],
+    input[type="text"] {
+        padding: 10px; /* Ajusta el padding para dispositivos móviles */
+        font-size: 0.9em; /* Ajusta el tamaño de la fuente para dispositivos móviles */
+    }
+
+    button {
+        padding: 10px; /* Ajusta el padding para dispositivos móviles */
+        font-size: 0.9em; /* Ajusta el tamaño de la fuente para dispositivos móviles */
+    }
+
+    #links-list {
+        grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)); /* Ocupa todo el ancho en móviles */
+    }
+
+    .link-item {
+        padding: 10px; /* Reduce el padding en móviles */
+    }
+
+    .link-item h3 {
+        font-size: 1em; /* Ajusta el tamaño para dispositivos móviles */
+    }
+
+    .link-item a {
+        font-size: 0.8em; /* Ajusta el tamaño para dispositivos móviles */
+    }
+
+    footer {
+        font-size: 0.8em; /* Ajusta el tamaño para dispositivos móviles */
+    }
+}
