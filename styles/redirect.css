@@ -1,0 +1,68 @@
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif; /* Cambia la fuente a Arial */
+    background-color: #f4f4f4; /* Fondo gris claro */
+    color: #333; /* Color de texto gris oscuro */
+    margin: 0; /* Sin márgenes */
+    padding: 0; /* Sin relleno */
+    display: flex; /* Usar flexbox para centrar contenido */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    height: 100vh; /* Tomar toda la altura de la ventana */
+    flex-direction: column; /* Colocar los elementos en columna */
+}
+
+/* Estilo del contenedor */
+.container {
+    background: white; /* Fondo blanco */
+    border-radius: 15px; /* Bordes redondeados */
+    padding: 40px; /* Relleno */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); /* Sombra del contenedor */
+    text-align: center; /* Centrar el contenido */
+}
+
+/* Estilo del título */
+h1 {
+    font-size: 2.5rem; /* Tamaño de fuente grande */
+    margin: 0; /* Sin margen */
+    padding: 20px; /* Relleno alrededor del título */
+    background-color: #007bff; /* Fondo azul */
+    color: white; /* Texto blanco */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+    transition: background-color 0.3s, transform 0.3s; /* Transición suave */
+}
+
+/* Efecto al pasar el mouse sobre el título */
+h1:hover {
+    background-color: #0056b3; /* Cambiar a un azul más oscuro */
+    transform: scale(1.05); /* Aumentar ligeramente el tamaño */
+}
+
+/* Estilo para la alerta */
+.alert {
+    display: none; /* Ocultar por defecto */
+    color: red; /* Color de texto rojo */
+    margin-top: 20px; /* Margen superior */
+    font-size: 1.2rem; /* Tamaño de fuente */
+    animation: fadeIn 0.5s; /* Animación de entrada */
+}
+
+/* Animación de desvanecimiento */
+@keyframes fadeIn {
+    from {
+        opacity: 0; /* Comienza invisible */
+    }
+    to {
+        opacity: 1; /* Termina visible */
+    }
+}
+
+/* Estilo de la imagen */
+.image {
+    width: 150px; /* Ancho de la imagen */
+    height: 150px; /* Alto de la imagen */
+    border-radius: 15px; /* Bordes redondeados */
+    margin-top: 20px; /* Margen superior */
+    object-fit: cover; /* Ajustar la imagen al cuadrado */
+}

@@ -42,8 +42,8 @@ document.getElementById('url-form').addEventListener('submit', async function(ev
     document.getElementById('image-input').value = '';
 
     // Redirigimos a la página intermedia
-    const redirectUrl = `../html/redirect.html?id=${uniqueId}`; // Pasamos el ID único como parámetro
-    window.location.href = redirectUrl; // Redireccionamos
+    //const redirectUrl = `../html/redirect.html?id=${uniqueId}`; // Pasamos el ID único como parámetro
+    //window.location.href = redirectUrl; // Redireccionamos
 });
 
 // Función para acortar la URL utilizando la API de Bitly
@@ -74,18 +74,30 @@ function displayLink(link) {
 
     linkElement.innerHTML = `
         <div class="link-content">
-            <img src="${link.image}" alt="${link.title}">
-            <div class="link-details">
-                <h3>${link.title}</h3>
-                <a href="${link.url}" target="_blank">${link.url}</a>
+            <img src="${link.image}" alt="${link.title}" class="link-image" onclick="redirectToLink('${link.id}')">
+            <div class="link-details" onclick="redirectToLink('${link.id}')">
+                <h3 class="link-title">${link.title}</h3>
+                <a href="#" class="link-url">${link.url}</a>
             </div>
-            <button class="copy-button" onclick="copyToClipboard('${link.url}', this)">Copiar</button>
-            <span class="copy-message" style="display:none;">Enlace copiado</span>
+            <div class="link-actions">
+                <button class="copy-button" onclick="copyToClipboard('${link.url}', this); event.stopPropagation();">Copiar</button>
+                <span class="copy-message" style="display:none;">Enlace copiado</span>
+            </div>
         </div>
     `;
 
     linksList.appendChild(linkElement); // Agregamos el nuevo enlace al contenedor
 }
+
+
+
+// Función para redirigir al enlace
+function redirectToLink(id) {
+    // Redirige a la página intermedia antes de llevar al enlace original
+    const redirectUrl = `../html/redirect.html?id=${id}`; // Pasamos el ID único como parámetro
+    window.location.href = redirectUrl; // Redirecciona
+}
+
 
 // Función para copiar el enlace al portapapeles
 function copyToClipboard(url, button) {

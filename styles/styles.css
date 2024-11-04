@@ -219,11 +219,21 @@ section {
     }
 
     #links-list {
+        display: flex;
+        flex-wrap: wrap; /* Permite que los enlaces se ajusten a varias filas */
+        gap: 16px; /* Espacio entre los elementos */
         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Ajusta el tamaño de las columnas */
     }
 
     .link-item {
-        padding: 12px; /* Ajusta el padding en dispositivos intermedios */
+        width: 200px; /* Ancho del contenedor del enlace */
+        height: 200px; /* Alto del contenedor del enlace */
+        border: 1px solid #ccc; /* Borde alrededor del enlace */
+        border-radius: 8px; /* Bordes redondeados */
+        overflow: hidden; /* Oculta cualquier desbordamiento */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
+        display: flex;
+        flex-direction: column; /* Organiza los hijos en columna */
     }
 
     .link-item h3 {
