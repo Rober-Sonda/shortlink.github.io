@@ -73,21 +73,50 @@ function displayLink(link) {
     linkElement.classList.add('link-item');
 
     linkElement.innerHTML = `
-        <div class="link-content">
-            <img src="${link.image}" alt="${link.title}" class="link-image" onclick="redirectToLink('${link.id}')">
-            <div class="link-details" onclick="redirectToLink('${link.id}')">
-                <h3 class="link-title">${link.title}</h3>
-                <a href="#" class="link-url">${link.url}</a>
-            </div>
+        <img src="${link.image}" alt="${link.title}" class="link-image" onclick="redirectToLink('${link.id}')">
+        <div class="link-overlay">
+            <h3 class="link-title">${link.title}</h3>
             <div class="link-actions">
                 <button class="copy-button" onclick="copyToClipboard('${link.url}', this); event.stopPropagation();">Copiar</button>
+                <span class="copy-message"">Enlace copiado</span>
+            </div>
+        </div>
+    `;
+
+    linksList.appendChild(linkElement);
+}
+
+/*
+// Función para mostrar un enlace en la interfaz
+function displayLink(link) {
+    const linksList = document.getElementById('links-list');
+    const linkElement = document.createElement('div');
+    linkElement.classList.add('link-item');
+
+    // Verifica que id esté definido
+    if (!link.id) {
+        console.error("El ID no está definido en el objeto link:", link);
+        return; // Salir de la función si no hay id
+    }
+
+    // Construir la URL de redirección usando la propiedad correcta
+    const redirectUrl = `../html/redirect.html?id=${link.id}`;
+
+    linkElement.innerHTML = `
+        <img src="${link.image}" alt="${link.title}" class="link-image" onclick="redirectToLink('${link.id}')">
+        <div class="link-overlay">
+            <h3 class="link-title">${link.title}</h3>
+            <div class="link-actions">
+                <button class="copy-button" onclick="copyToClipboard('${redirectUrl}', this); event.stopPropagation();">Copiar</button>
                 <span class="copy-message" style="display:none;">Enlace copiado</span>
             </div>
         </div>
     `;
 
-    linksList.appendChild(linkElement); // Agregamos el nuevo enlace al contenedor
+    linksList.appendChild(linkElement);
 }
+*/
+
 
 
 

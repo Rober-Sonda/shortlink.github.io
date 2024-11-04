@@ -92,31 +92,53 @@ button:hover {
 }
 
 #links-list {
-    display: grid; /* Cambia a grid para diseño de cuadrícula */
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Establece columnas automáticas con un tamaño mínimo */
-    gap: 16px; /* Espacio entre los cuadros */
-    margin-top: 20px; /* Espacio superior */
+    display: flex;
+    flex-wrap: wrap; /* Permite que los enlaces se ajusten a varias filas */
+    gap: 16px; /* Espacio entre los elementos */
 }
+
 
 .link-item {
-    background-color: #f9f9f9; /* Color de fondo del cuadro */
-    border: 1px solid #ddd; /* Borde del cuadro */
+    width: 200px; /* Ancho del contenedor del enlace */
+    height: 200px; /* Alto del contenedor del enlace (cuadrado) */
+    border: 1px solid #ccc; /* Borde alrededor del enlace */
     border-radius: 8px; /* Bordes redondeados */
-    padding: 16px; /* Espaciado interno */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra para dar efecto de elevación */
-    transition: transform 0.2s; /* Transición para efectos de hover */
+    overflow: hidden; /* Oculta cualquier desbordamiento */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    display: flex;
+    flex-direction: column; /* Organiza los hijos en columna */
+    position: relative; /* Permite posicionar el contenido absolutamente dentro */
 }
 
+.link-overlay {
+    position: absolute; /* Permite que el div esté sobre la imagen */
+    top: 0; /* Se superpone desde la parte superior */
+    left: 0; /* Se superpone desde la izquierda */
+    right: 0; /* Se superpone hasta la derecha */
+    bottom: 0; /* Se superpone hasta la parte inferior */
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo negro con transparencia */
+    display: flex;
+    flex-direction: column; /* Organiza el contenido en columna */
+    justify-content: center; /* Centra el contenido verticalmente */
+    align-items: center; /* Centra el contenido horizontalmente */
+    color: white; /* Color de texto blanco para contraste */
+    padding: 10px; /* Espaciado interno */
+}
+
+.link-image {
+    width: 100%; /* Hace que la imagen ocupe todo el ancho */
+    height: 100%; /* Altura fija para la imagen (ajustar según sea necesario) */
+    object-fit: cover; /* Asegura que la imagen mantenga proporción y cubra el área */
+}
 .link-item:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     transform: scale(1.02); /* Efecto de aumento al pasar el ratón */
 }
 
 .link-content {
-    display: flex; /* Flex para el contenido dentro del cuadro */
-    flex-direction: column; /* Columna para apilar elementos */
-    align-items: center; /* Centrar elementos */
-    text-align: center; /* Centrar texto */
+    display: flex;
+    flex-direction: column; /* Asegura que todo el contenido se apile verticalmente */
+    height: 100%; /* Ocupa toda la altura del link-item */
 }
 
 .link-content img {
@@ -125,20 +147,26 @@ button:hover {
 }
 
 .link-item img {
-    width: 80px;
-    height: 80px;
-    border-radius: 10px;
-    margin-right: 15px;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    margin-right: 0px;
 }
 
 .link-details {
-    flex-grow: 1;
+    padding: 8px; /* Espaciado interno */
+    flex-grow: 1; /* Permite que este espacio crezca para llenar el área */
 }
 
+.link-title {
+    font-size: 1.4em; /* Ajusta el tamaño del título */
+    margin: 0; 
+    text-align: center; /* Centra el texto */
+}
 .link-item h3 {
-    font-size: 1.2em;
+    font-size: 1.4em;
     margin-bottom: 5px;
-    color: #007bff;
+    color: #fff;
 }
 
 .link-item a {
@@ -153,18 +181,42 @@ button:hover {
     color: #0056b3;
 }
 
-.copy-button {
+.link-url {
+    color: #fff; /* Color para el enlace */
+    text-decoration: none;
+}
+
+.link-actions {
+    display: flex; 
+    justify-content: center; /* Centra horizontalmente los botones */
     margin-top: 10px; /* Espacio arriba del botón */
+}
+
+.copy-button {
+    background-color: #28a745; /* Color de fondo del botón */
+    color: white; /* Color del texto del botón */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Bordes redondeados para el botón */
+    padding: 5px 10px; /* Espaciado interno del botón */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
 }
 
 .copy-button:hover {
     background-color: #218838;
 }
 
+/* Estilo para el mensaje de copia */
 .copy-message {
-    margin-left: 10px;
-    color: #28a745;
-    font-size: 0.9em;
+    font-size: 12px; /* Tamaño de fuente para el mensaje */
+    color: white; /* Color del mensaje */
+    position: absolute; /* Posiciona el mensaje en la parte inferior */
+    left: 50%; /* Coloca el mensaje en el 50% del ancho del contenedor */
+    bottom: 10px; /* Espaciado desde el fondo */
+    display: none; /* Ocultar por defecto */
+    background: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente para legibilidad */
+    padding: 5px; /* Espaciado interno del mensaje */
+    border-radius: 4px; /* Bordes redondeados */
+    transform: translateX(-50%); /* Mueve el mensaje hacia la izquierda para centrarlo */
 }
 
 footer {
@@ -216,24 +268,6 @@ section {
     button {
         padding: 12px; /* Mantiene el padding para dispositivos intermedios */
         font-size: 1em; /* Ajusta el tamaño de la fuente para dispositivos intermedios */
-    }
-
-    #links-list {
-        display: flex;
-        flex-wrap: wrap; /* Permite que los enlaces se ajusten a varias filas */
-        gap: 16px; /* Espacio entre los elementos */
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Ajusta el tamaño de las columnas */
-    }
-
-    .link-item {
-        width: 200px; /* Ancho del contenedor del enlace */
-        height: 200px; /* Alto del contenedor del enlace */
-        border: 1px solid #ccc; /* Borde alrededor del enlace */
-        border-radius: 8px; /* Bordes redondeados */
-        overflow: hidden; /* Oculta cualquier desbordamiento */
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
-        display: flex;
-        flex-direction: column; /* Organiza los hijos en columna */
     }
 
     .link-item h3 {
