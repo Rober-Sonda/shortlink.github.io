@@ -40,6 +40,10 @@ document.getElementById('url-form').addEventListener('submit', async function(ev
     document.getElementById('url-input').value = '';
     document.getElementById('title-input').value = '';
     document.getElementById('image-input').value = '';
+
+    // Redirigimos a la página intermedia
+    const redirectUrl = `../html/redirect.html?id=${uniqueId}`; // Pasamos el ID único como parámetro
+    window.location.href = redirectUrl; // Redireccionamos
 });
 
 // Función para acortar la URL utilizando la API de Bitly

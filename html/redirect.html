@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redireccionando...</title>
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="" id="og-title" />
+    <meta property="og:description" content="" id="og-description" />
+    <meta property="og:image" content="" id="og-image" />
+    <meta property="og:url" content="" id="og-url" />
+    <meta property="og:type" content="website" />
+</head>
+<body>
+    <h1>Redireccionando...</h1>
+    <script>
+        // Función para redirigir a la URL original
+        function redirect() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id'); // Obtenemos el ID único de los parámetros
+
+            // Recuperamos los enlaces del localStorage
+            const links = JSON.parse(localStorage.getItem('links')) || [];
+            const linkData = links.find(link => link.id === id); // Buscamos el enlace correspondiente
+
+            if (linkData) {
+                // Establecemos dinámicamente los Open Graph meta tags
+                document.getElementById('og-title').content = linkData.title;
+                document.getElementById('og-description').content = "Descripción personalizada aquí."; // Puedes agregar una descripción específica si lo deseas
+                document.getElementById('og-image').content = linkData.image;
+                document.getElementById('og-url').content = linkData.url;
+
+                // Redirigimos a la URL original después de un pequeño retraso
+                window.location.href = linkData.url;
+            } else {
+                alert('Enlace no encontrado.');
+            }
+        }
+
+        redirect(); // Llamamos a la función de redirección
+    </script>
+</body>
+</html>

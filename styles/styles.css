@@ -10,9 +10,12 @@ body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     margin: 0;
     padding: 20px;
-    background-color: #f3f4f6;
+    background: linear-gradient(135deg, #1a2a3a, #1e3b5a, #2a5070);
     color: #333;
+    width: 50%;
+    margin: 40px auto;
 }
+
 
 header {
     background: linear-gradient(90deg, #007bff, #00c6ff);
@@ -30,7 +33,7 @@ h1 {
 
 h2 {
     font-size: 1.8em;
-    margin: 15px 0 5px;
+    margin: 15px 10px 10px 0px;
 }
 
 main {
@@ -39,13 +42,29 @@ main {
     background: white;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    font-size: 0.9em; /* Disminuye ligeramente el tamaño de fuente en el contenedor principal */
+    line-height: 1.5; /* Incrementa la altura de línea para mejor legibilidad */
 }
 
 form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px; /* Incrementa el espacio entre los controles */
 }
+
+button {
+    margin-top: 5px; /* Añade un pequeño margen superior */
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+
 
 input[type="url"],
 input[type="text"] {
@@ -61,17 +80,6 @@ input[type="text"]:focus {
     border-color: #0056b3;
     box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
     outline: none;
-}
-
-button {
-    padding: 12px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s, transform 0.2s;
 }
 
 button:hover {
@@ -163,13 +171,80 @@ footer {
     text-align: center;
     margin-top: 30px;
     font-size: 0.9em;
-    color: #777;
+    color: #fff;
+}
+
+/* Ajusta el espaciado entre las secciones */
+section {
+    margin-bottom: 25px; /* Espacio entre secciones */
+}
+
+#links-container h2 {
+    margin-bottom: 15px; /* Añade espacio debajo del encabezado en la sección de enlaces */
+}
+
+/* Media Queries para pantallas intermedias */
+@media (min-width: 601px) and (max-width: 900px) {
+    body {
+        padding: 10px; /* Reduce el padding en dispositivos intermedios */
+        width: 70%; /* Cambia el ancho a 70% para pantallas intermedias */
+        margin: 40px auto; /* Centra el contenido */
+    }
+
+    header {
+        padding: 20px; /* Ajusta el padding en dispositivos intermedios */
+    }
+
+    h1 {
+        font-size: 2.2em; /* Ajusta el tamaño para pantallas intermedias */
+    }
+
+    h2 {
+        font-size: 1.6em; /* Ajusta el tamaño para pantallas intermedias */
+    }
+
+    main {
+        padding: 20px; /* Aumenta el padding en dispositivos intermedios */
+    }
+
+    input[type="url"],
+    input[type="text"] {
+        padding: 12px; /* Mantiene el padding para dispositivos intermedios */
+        font-size: 1em; /* Ajusta el tamaño de la fuente para dispositivos intermedios */
+    }
+
+    button {
+        padding: 12px; /* Mantiene el padding para dispositivos intermedios */
+        font-size: 1em; /* Ajusta el tamaño de la fuente para dispositivos intermedios */
+    }
+
+    #links-list {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Ajusta el tamaño de las columnas */
+    }
+
+    .link-item {
+        padding: 12px; /* Ajusta el padding en dispositivos intermedios */
+    }
+
+    .link-item h3 {
+        font-size: 1.1em; /* Ajusta el tamaño para pantallas intermedias */
+    }
+
+    .link-item a {
+        font-size: 0.9em; /* Ajusta el tamaño para pantallas intermedias */
+    }
+
+    footer {
+        font-size: 0.9em; /* Ajusta el tamaño para pantallas intermedias */
+    }
 }
 
 /* Media Queries para pantallas pequeñas */
 @media (max-width: 600px) {
     body {
         padding: 10px; /* Reduce el padding en móviles */
+        width: 80%;
+        margin: 40px auto;
     }
 
     header {
