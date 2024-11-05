@@ -2,7 +2,6 @@
     "server": {
       "baseDir": "./",
       "port": 3000
-    },
-    "files": ["./html/**/*.{html,css,js}"]
+    }
   }
   
