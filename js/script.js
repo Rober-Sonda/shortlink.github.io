@@ -1,3 +1,49 @@
+// Importar Firebase desde tu configuración
+import { db } from '../js/firebaseConfig.js';
+import { collection, addDoc, getDocs } from 'https://www.gstatic.com/firebasejs/9.20.0/firebase-firestore.js'; // Agrupa las importaciones
+
+
+// Función para agregar un documento con los campos necesarios a Firestore
+async function addMediaToFirestore(title, destinationUrl, imageUrl, landingUrl) {
+    try {
+        // Agrega el documento en una colección llamada "media"
+        await addDoc(collection(db, "media"), {
+            title: title,
+            destinationUrl: destinationUrl,
+            imageUrl: imageUrl,
+            landingUrl: landingUrl
+        });
+        console.log("Documento agregado a Firestore con éxito");
+    } catch (error) {
+        console.error("Error al agregar el documento a Firestore:", error);
+    }
+}
+
+
+// Ejemplo de uso
+// addMediaToFirestore("Título del ejemplo", "https://example.com/destino", "https://example.com/imagen.jpg", "https://example.com/landing");
+
+
+//import { collection, getDocs } from "firebase/firestore";
+
+// Función para recuperar y mostrar documentos de la colección "media"
+async function fetchMediaFromFirestore() {
+    try {
+        const querySnapshot = await getDocs(collection(db, "media"));
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            console.log(`ID: ${doc.id}, Title: ${data.title}, Destination URL: ${data.destinationUrl}, Image URL: ${data.imageUrl}, Landing URL: ${data.landingUrl}`);
+        });
+    } catch (error) {
+        console.error("Error al obtener los documentos de Firestore:", error);
+    }
+}
+
+
+// Llamada a la función para recuperar los documentos
+// fetchMediaFromFirestore();
+
+
 // Al enviar el formulario
 document.getElementById('url-form').addEventListener('submit', async function(event) {
     event.preventDefault(); // Evita el envío normal del formulario
@@ -27,6 +73,20 @@ document.getElementById('url-form').addEventListener('submit', async function(ev
         title: title,
         image: image,
     };
+
+    // Almacena en Firestore
+    try {
+        await addMediaToFirestore(title, shortenedUrl, image, originalUrl);
+        console.log("Datos almacenados en Firestore exitosamente");
+
+        // Llama a la función para recuperar y mostrar los documentos actualizados
+        fetchMediaFromFirestore();
+    } catch (error) {
+        console.error("Error al almacenar los datos en Firestore:", error);
+        alert("No se pudo almacenar la información. Intenta de nuevo.");
+        return;
+    }
+
 
     // Recuperamos los enlaces existentes o inicializamos un array vacío
     let links = JSON.parse(localStorage.getItem('links')) || [];
