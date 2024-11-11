@@ -1,4 +1,8 @@
 <?php
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use Firebase\JWT\JWT;
+
 // Carga el archivo JSON de la cuenta de servicio
 $serviceAccountFile = '../shortener-firebase-admin.json';
 $serviceAccount = json_decode(file_get_contents($serviceAccountFile), true);

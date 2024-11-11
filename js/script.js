@@ -3,15 +3,17 @@ import { db } from '../js/firebaseConfig.js';
 import { collection, addDoc, getDocs } from 'https://www.gstatic.com/firebasejs/9.20.0/firebase-firestore.js'; // Agrupa las importaciones
 
 
-// Función para agregar un documento con los campos necesarios a Firestore
-async function addMediaToFirestore(title, destinationUrl, imageUrl, landingUrl) {
+// Función para agregar un documento a Firestore
+async function addMediaToFirestore(title, destinationUrl, imageUrl, landingUrl, shortenedUrl, uniqueId) {
     try {
-        // Agrega el documento en una colección llamada "media"
+        // Agrega el documento en la colección "media" con un uniqueId y URL acortada
         await addDoc(collection(db, "media"), {
             title: title,
             destinationUrl: destinationUrl,
             imageUrl: imageUrl,
-            landingUrl: landingUrl
+            landingUrl: landingUrl,
+            shortenedUrl: shortenedUrl,
+            uniqueId: uniqueId  // Guardamos también el ID único
         });
         console.log("Documento agregado a Firestore con éxito");
     } catch (error) {
@@ -49,17 +51,18 @@ document.getElementById('url-form').addEventListener('submit', async function(ev
     event.preventDefault(); // Evita el envío normal del formulario
 
     // Capturamos los datos del formulario
-    const originalUrl = document.getElementById('url-input').value;
+    const destinationUrl = document.getElementById('url-input').value;
     const title = document.getElementById('title-input').value;
-    const image = document.getElementById('image-input').value;
-
+    const imageUrl = document.getElementById('image-input').value;
     // Generamos un ID único
     const uniqueId = Math.random().toString(36).substring(2, 8);
+    const landingUrl = generateRedirectUrl(uniqueId);
+    console.log("Generado uniqueId:", uniqueId); // Verifica si se genera correctamente
 
     // Acortamos la URL usando Bitly
-    let shortenedUrl = '';
+    var shortenedUrl = '';
     try {
-        shortenedUrl = await shortenUrl(originalUrl);
+        shortenedUrl = await shortenUrl(destinationUrl);
     } catch (error) {
         console.error('Error al acortar la URL:', error);
         alert('No se pudo acortar la URL. Intenta de nuevo más tarde.');
@@ -68,15 +71,17 @@ document.getElementById('url-form').addEventListener('submit', async function(ev
 
     // Creamos un objeto para almacenar
     const linkData = {
-        id: uniqueId,
-        url: shortenedUrl, // Usamos la URL acortada
         title: title,
-        image: image,
+        destinationUrl: destinationUrl,
+        imageUrl: imageUrl,
+        landingUrl: landingUrl,
+        shortenedUrl: shortenedUrl,
+        uniqueId: uniqueId  // Guardamos también el ID único
     };
 
     // Almacena en Firestore
     try {
-        await addMediaToFirestore(title, shortenedUrl, image, originalUrl);
+        await addMediaToFirestore(title, destinationUrl, imageUrl, landingUrl, shortenedUrl, uniqueId);
         console.log("Datos almacenados en Firestore exitosamente");
 
         // Llama a la función para recuperar y mostrar los documentos actualizados
@@ -133,11 +138,11 @@ function displayLink(link) {
     linkElement.classList.add('link-item');
 
     linkElement.innerHTML = `
-        <img src="${link.image}" alt="${link.title}" class="link-image" onclick="redirectToLink('${link.id}')">
+        <img src="${link.imageUrl}" alt="${link.title}" class="link-image">
         <div class="link-overlay">
             <h3 class="link-title">${link.title}</h3>
             <div class="link-actions">
-                <button class="copy-button" onclick="copyToClipboard('${link.url}', this); event.stopPropagation();">Copiar</button>
+                <button class="copy-button" onclick="copyToClipboard('${link.landingUrl}', this); event.stopPropagation();">Copiar</button>
                 <span class="copy-message"">Enlace copiado</span>
             </div>
         </div>
@@ -145,6 +150,7 @@ function displayLink(link) {
 
     linksList.appendChild(linkElement);
 }
+
 
 /*
 // Función para mostrar un enlace en la interfaz
@@ -177,32 +183,64 @@ function displayLink(link) {
 }
 */
 
+// Función para generar la URL de redirección a partir del ID
+function generateRedirectUrl(uniqueid) {
+    // Obtén el dominio y puerto (si lo hay) del servidor actual
+    var baseUrl = window.location.origin;
 
+    // Construye la URL completa usando el ID único
+    return `${baseUrl}/php/redirect.php?id=${uniqueid}`;
+}
+window.generateRedirectUrl = generateRedirectUrl;
 
-
-// Función para redirigir al enlace
+// Al hacer clic en el enlace
 function redirectToLink(id) {
-    // Redirige a la página intermedia antes de llevar al enlace original
-    const redirectUrl = `../html/redirect.html?id=${id}`; // Pasamos el ID único como parámetro
-    window.location.href = redirectUrl; // Redirecciona
+    // Obtén el dominio y puerto (si lo hay) del servidor actual
+    var baseUrl = window.location.origin;
+
+    // Construye la URL completa usando el ID único
+
+    const redirectUrl = `${baseUrl}/php/redirect.php?id=${uniqueid}`;
+    window.location.href = redirectUrl; // Realiza la redirección
 }
 
+window.redirectToLink = redirectToLink;
 
 // Función para copiar el enlace al portapapeles
-function copyToClipboard(url, button) {
-    navigator.clipboard.writeText(url).then(() => {
-        // Mostrar mensaje de éxito
-        const message = button.nextElementSibling;
-        message.style.display = 'inline';
-        
-        // Cambiar el icono del botón
-        button.innerText = 'Copiado!';
-        setTimeout(() => {
-            button.innerText = 'Copiar';
-            message.style.display = 'none'; // Ocultar mensaje después de 2 segundos
-        }, 2000);
-    });
+function copyToClipboard(id, buttonElement) {
+    // Crear la URL de redirección
+    const redirectUrl = `../php/redirect.php?id=${id}`;
+    
+    // Crear un elemento de texto temporal
+    const tempInput = document.createElement('input');
+    tempInput.value = redirectUrl; // Asignar la URL al valor del input
+    
+    // Añadirlo al DOM (necesario para interactuar con el portapapeles)
+    document.body.appendChild(tempInput);
+    
+    // Seleccionar el contenido del input
+    tempInput.select();
+    tempInput.setSelectionRange(0, 99999); // Para dispositivos móviles
+    
+    // Copiar el contenido al portapapeles
+    document.execCommand('copy');
+    
+    // Eliminar el input temporal
+    document.body.removeChild(tempInput);
+    
+    // Cambiar el texto del botón para indicar que se copió
+    const copyMessage = buttonElement.nextElementSibling; // Asumiendo que el span está justo después del botón
+    copyMessage.style.display = 'block'; // Mostrar el mensaje de "Enlace copiado"
+    
+    // Opcional: ocultar el mensaje después de unos segundos
+    setTimeout(() => {
+        copyMessage.style.display = 'none';
+    }, 2000);
 }
+
+
+// Expón la función al ámbito global
+window.copyToClipboard = copyToClipboard;
 
 // Función para limpiar los enlaces
 document.getElementById('clear-links').addEventListener('click', function() {
